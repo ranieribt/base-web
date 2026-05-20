@@ -1,0 +1,77 @@
+---
+import { getTitle, lang, prod } from '../lib/config';
+// import '../lib/server/checkEnv';
+import '../styles/global.css';
+import GATag from './GATag.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const image = '/social.png';
+let { title, description } = Astro.props;
+title = getTitle(title);
+
+// const isAccountPage = Astro.url.pathname === '/u'
+
+// console.log('Astro.url.pathname', Astro.url.pathname)
+// console.log('isAccountPage', isAccountPage)
+
+/** @todo editar imagem social */
+/** @todo ver SEO goodies em sites como StackOverflow, Webflow */
+---
+
+<html lang={lang} id="root" class="h-full bg-white">
+  <head>
+    {prod ? <GATag /> : null}
+    <!-- {prod && isAccountPage ? <GATagEvento /> : null} -->
+    <!-- Global Metadata -->
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.url)} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, Astro.url)} />
+  </head>
+  <body class="antialiased text-brand-black">
+    <noscript>
+      Você precisa habilitar JavaScript para executar este app.
+    </noscript>
+    <slot />
+  </body>
+</html>
+
+<!-- <style is:global>
+  @font-face {
+    font-family: 'PlusJakartaSans';
+    src: url('/PlusJakartaSans.ttf') format('truetype');
+    /* font-family: 'inter';
+    src: url('/inter.ttf') format('truetype'); */
+    font-display: auto;
+  }
+
+  :root {
+    font-variant-ligatures: none;
+  }
+</style> -->
