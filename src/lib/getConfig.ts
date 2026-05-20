@@ -26,7 +26,7 @@ export default function getConfig(prod: boolean, test?: boolean) {
   const description =
     '--description'
 
-  const wame_href = "https://wa.me/5591980783376"
+  const wame_href = "https://wa.me/55909000000"
   
   const getTitle = (pageTitle = '') =>
     pageTitle ? pageTitle + sep + name : name
